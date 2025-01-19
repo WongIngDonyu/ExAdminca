@@ -5,7 +5,6 @@ networks:
     driver: bridge
 
 services:
-  # Redis
   redis:
     image: redis
     container_name: redis
@@ -14,17 +13,18 @@ services:
     networks:
       - app_network
 
-  # RabbitMQ
   rabbitmq:
-    image: rabbitmq:latest
+    image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
     networks:
       - app_network
 
-  # MongoDB
   mongodb:
     image: mongo:latest
     container_name: mongo
@@ -33,7 +33,6 @@ services:
     networks:
       - app_network
 
-  # Mongo Express
   mongo-express:
     image: mongo-express
     container_name: mongo_express
@@ -47,7 +46,6 @@ services:
     networks:
       - app_network
 
-  # Domain Service
   domain-service:
     build:
       context: ./domain-service
@@ -59,7 +57,6 @@ services:
     networks:
       - app_network
 
-  # Gateway Service
   gateway-service:
     build:
       context: ./gateway-service
@@ -71,7 +68,6 @@ services:
     networks:
       - app_network
 
-  # Elasticsearch
   elasticsearch:
     image: elasticsearch:8.7.0
     container_name: elasticsearch
@@ -84,7 +80,6 @@ services:
     networks:
       - app_network
 
-  # Logstash
   logstash:
     image: logstash:8.7.0
     container_name: logstash
@@ -95,7 +90,6 @@ services:
     networks:
       - app_network
 
-  # Kibana
   kibana:
     image: kibana:8.7.0
     container_name: kibana
@@ -106,7 +100,6 @@ services:
     networks:
       - app_network
 
-  # Prometheus
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -117,7 +110,6 @@ services:
     networks:
       - app_network
 
-  # Grafana
   grafana:
     image: grafana/grafana
     container_name: grafana

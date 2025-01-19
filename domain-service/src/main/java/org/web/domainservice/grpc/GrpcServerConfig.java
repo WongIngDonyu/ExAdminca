@@ -16,7 +16,6 @@ public class GrpcServerConfig {
                 .build();
         server.start();
         System.out.println("gRPC Server started, listening on port 9090");
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutting down gRPC Server...");
             server.shutdown();
