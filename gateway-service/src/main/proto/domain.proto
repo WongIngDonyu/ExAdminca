@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package org.web.domainservice.grpc;
+option java_multiple_files = true;
+
+// Описание сервиса с CRUD-операциями
+service DomainService {
+  rpc CreateGroup (CreateGroupRequest) returns (GroupResponse);
+  rpc GetGroup (GetGroupRequest) returns (GroupResponse);
+  rpc UpdateGroup (UpdateGroupRequest) returns (GroupResponse);
+  rpc DeleteGroup (DeleteGroupRequest) returns (DeleteGroupResponse);
+  rpc ListGroups (EmptyRequest) returns (ListGroupsResponse);
+}
+
+// Запросы и ответы для операций
+
+// Create
+message CreateGroupRequest {
+  string name = 1;
+  string description = 2;
+}
+
+// Read
+message GetGroupRequest {
+  string id = 1;
+}
+
+// Update
+message UpdateGroupRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+// Delete
+message DeleteGroupRequest {
+  string id = 1;
+}
+
+// Response для удаления
+message DeleteGroupResponse {
+  string id = 1;
+  string message = 2;
+}
+
+// List all groups
+message ListGroupsResponse {
+  repeated GroupResponse groups = 1;
+}
+
+// Пустой запрос
+message EmptyRequest {}
+
+// Общий ответ
+message GroupResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+}
